@@ -1,0 +1,45 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eef2f7;
+    margin: 0;
+    padding: 20px;
+}
+
+
+.tarjeta h1 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+
+.tarjeta {
+    border: 2px solid #2c3e50;
+    padding: 25px;
+    margin: 20px auto;
+    max-width: 600px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+}
+
+
+.circulo {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    line-height: 100px;
+    margin: 20px auto;
+}
+
+
+.caja-espaciado {
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 400px;
+    border: 1px dashed #999;
+    text-align: center;
+    color: #555;
+}

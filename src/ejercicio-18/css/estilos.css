@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+}
+
+h1 {
+    color: #1a1a2e;
+    text-align: center;
+}
+
+.secundario {
+    color: #555555;
+    font-style: italic;
+}
+
+.destacado {
+    color: navy;
+    font-size: 20px;
+}
+
+#titulo-principal {
+    border-bottom: 3px solid #007bff;
+    padding-bottom: 8px;
+}
+
+#pie-pagina {
+    color: #888888;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 40px;
+}

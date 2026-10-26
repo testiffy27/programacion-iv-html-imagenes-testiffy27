@@ -1,0 +1,115 @@
+name: Autograding Tests
+'on':
+  push:
+  repository_dispatch:
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: [self-hosted, oracle]
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+    
+    # Cachear node_modules
+    - name: Cache node_modules
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    
+    - name: Instalar dependencias
+      run: npm install
+    
+    - name: Ejercicio 15 - Estructura HTML
+      id: ejercicio-15
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Ejercicio 15 - Estructura HTML
+        setup-command: ''
+        command: npm test tests/ejercicio/15-estructura-html.test.js
+        timeout: 30
+        max-score: 8
+    
+    - name: Ejercicio 16 - Galería de Imágenes
+      id: ejercicio-16
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Ejercicio 16 - Galería de Imágenes
+        setup-command: ''
+        command: npm test tests/ejercicio/16-galeria-imagenes.test.js
+        timeout: 30
+        max-score: 10
+    
+    - name: Ejercicio 17 - Navegación HTML
+      id: ejercicio-17
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Ejercicio 17 - Navegación HTML
+        setup-command: ''
+        command: npm test tests/ejercicio/17-navegacion-html.test.js
+        timeout: 30
+        max-score: 5
+    
+    - name: Ejercicio 18 - Selectores CSS
+      id: ejercicio-18
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Ejercicio 18 - Selectores CSS
+        setup-command: ''
+        command: npm test tests/ejercicio/18-selectores-css.test.js
+        timeout: 30
+        max-score: 20
+    
+    - name: Ejercicio 19 - Colores CSS
+      id: ejercicio-19
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Ejercicio 19 - Colores CSS
+        setup-command: ''
+        command: npm test tests/ejercicio/19-colores-css.test.js
+        timeout: 30
+        max-score: 18
+    
+    - name: Ejercicio 20 - Bordes CSS
+      id: ejercicio-20
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Ejercicio 20 - Bordes CSS
+        setup-command: ''
+        command: npm test tests/ejercicio/20-bordes-css.test.js
+        timeout: 30
+        max-score: 17
+    
+    - name: Ejercicio 21 - CSS Ejercicios 15-17
+      id: ejercicio-21
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Ejercicio 21 - CSS Ejercicios 15-17
+        setup-command: ''
+        command: npm test tests/ejercicio/21-css-ejercicios-15-17.test.js
+        timeout: 30
+        max-score: 22
+    
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        EJERCICIO-15_RESULTS: "${{steps.ejercicio-15.outputs.result}}"
+        EJERCICIO-16_RESULTS: "${{steps.ejercicio-16.outputs.result}}"
+        EJERCICIO-17_RESULTS: "${{steps.ejercicio-17.outputs.result}}"
+        EJERCICIO-18_RESULTS: "${{steps.ejercicio-18.outputs.result}}"
+        EJERCICIO-19_RESULTS: "${{steps.ejercicio-19.outputs.result}}"
+        EJERCICIO-20_RESULTS: "${{steps.ejercicio-20.outputs.result}}"
+        EJERCICIO-21_RESULTS: "${{steps.ejercicio-21.outputs.result}}"
+      with:
+        runners: ejercicio-15,ejercicio-16,ejercicio-17,ejercicio-18,ejercicio-19,ejercicio-20,ejercicio-21
